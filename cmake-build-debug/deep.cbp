@@ -5,120 +5,167 @@
 		<Option title="deep"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\usr\local\lib\cmake\dlib\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\random_forest\;CMake Files\tests\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/fran/code/deep/cmake-build-debug"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/fran/code/deep/cmake-build-debug"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/fran/code/deep/cmake-build-debug"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="deep">
-				<Option output="/home/fran/code/deep/cmake-build-debug/deep" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/fran/code/deep/cmake-build-debug"/>
+			<Target title="test">
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="random_forest">
+				<Option output="/home/fran/code/github/deep/cmake-build-debug/random_forest/librandom_forest.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug/random_forest"/>
 				<Option object_output="./"/>
-				<Option type="1"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/fran/code/deep/cmake-build-debug"/>
-					<Add directory="/home/fran/code/deep/src"/>
-					<Add directory="/home/fran/code/deep/include"/>
-					<Add directory="/usr/local/include"/>
+					<Add directory="/home/fran/code/github/deep/random_forest"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 deep"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 random_forest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="deep/fast">
-				<Option output="/home/fran/code/deep/cmake-build-debug/deep" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/fran/code/deep/cmake-build-debug"/>
+			<Target title="random_forest/fast">
+				<Option output="/home/fran/code/github/deep/cmake-build-debug/random_forest/librandom_forest.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug/random_forest"/>
 				<Option object_output="./"/>
-				<Option type="1"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/fran/code/deep/cmake-build-debug"/>
-					<Add directory="/home/fran/code/deep/src"/>
-					<Add directory="/home/fran/code/deep/include"/>
-					<Add directory="/usr/local/include"/>
+					<Add directory="/home/fran/code/github/deep/random_forest"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 deep/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/deep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 random_forest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/random_forest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="treecheck">
+				<Option output="/home/fran/code/github/deep/cmake-build-debug/tests/treecheck" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/fran/code/github/deep/tests"/>
+					<Add directory="/home/fran/code/github/deep/random_forest/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 treecheck"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="treecheck/fast">
+				<Option output="/home/fran/code/github/deep/cmake-build-debug/tests/treecheck" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/fran/code/github/deep/cmake-build-debug/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/fran/code/github/deep/tests"/>
+					<Add directory="/home/fran/code/github/deep/random_forest/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 treecheck/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/fran/code/github/deep/cmake-build-debug/tests/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/fran/code/deep/include/decisiontrees/Node.h">
-			<Option target="deep"/>
+		<Unit filename="/home/fran/code/github/deep/random_forest/include/decisiontrees/Node.h">
+			<Option target="random_forest"/>
 		</Unit>
-		<Unit filename="/home/fran/code/deep/include/decisiontrees/NodeAlgorithms.h">
-			<Option target="deep"/>
+		<Unit filename="/home/fran/code/github/deep/random_forest/include/decisiontrees/NodeAlgorithms.h">
+			<Option target="random_forest"/>
 		</Unit>
-		<Unit filename="/home/fran/code/deep/src/decisiontrees/Node.cpp">
-			<Option target="deep"/>
+		<Unit filename="/home/fran/code/github/deep/random_forest/src/decisiontrees/Node.cpp">
+			<Option target="random_forest"/>
 		</Unit>
-		<Unit filename="/home/fran/code/deep/src/main.cpp">
-			<Option target="deep"/>
+		<Unit filename="/home/fran/code/github/deep/tests/main.cpp">
+			<Option target="treecheck"/>
 		</Unit>
-		<Unit filename="/home/fran/code/deep/CMakeLists.txt">
+		<Unit filename="/home/fran/code/github/deep/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/fran/code/deep/config.h.in">
-			<Option virtualFolder="CMake Files\"/>
+		<Unit filename="/home/fran/code/github/deep/random_forest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\random_forest\"/>
 		</Unit>
-		<Unit filename="/home/fran/code/deep/../../../../usr/local/lib/cmake/dlib/dlib-release.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\dlib\"/>
-		</Unit>
-		<Unit filename="/home/fran/code/deep/../../../../usr/local/lib/cmake/dlib/dlib.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\dlib\"/>
-		</Unit>
-		<Unit filename="/home/fran/code/deep/../../../../usr/local/lib/cmake/dlib/dlibConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\dlib\"/>
-		</Unit>
-		<Unit filename="/home/fran/code/deep/../../../../usr/local/lib/cmake/dlib/dlibConfigVersion.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\dlib\"/>
+		<Unit filename="/home/fran/code/github/deep/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

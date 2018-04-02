@@ -48,10 +48,10 @@ RM = /opt/apps/clion/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fran/code/deep
+CMAKE_SOURCE_DIR = /home/fran/code/github/deep
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fran/code/deep/cmake-build-debug
+CMAKE_BINARY_DIR = /home/fran/code/github/deep/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,11 +78,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/opt/apps/clion/bin/cmake/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/deep/cmake-build-debug/CMakeFiles /home/fran/code/deep/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/github/deep/cmake-build-debug/CMakeFiles /home/fran/code/github/deep/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/deep/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/github/deep/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,71 +122,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named deep
+# Target rules for targets named random_forest
 
 # Build rule for target.
-deep: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 deep
-.PHONY : deep
+random_forest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 random_forest
+.PHONY : random_forest
 
 # fast build rule for target.
-deep/fast:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/build
-.PHONY : deep/fast
+random_forest/fast:
+	$(MAKE) -f random_forest/CMakeFiles/random_forest.dir/build.make random_forest/CMakeFiles/random_forest.dir/build
+.PHONY : random_forest/fast
 
-src/decisiontrees/Node.o: src/decisiontrees/Node.cpp.o
+#=============================================================================
+# Target rules for targets named treecheck
 
-.PHONY : src/decisiontrees/Node.o
+# Build rule for target.
+treecheck: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 treecheck
+.PHONY : treecheck
 
-# target to build an object file
-src/decisiontrees/Node.cpp.o:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/src/decisiontrees/Node.cpp.o
-.PHONY : src/decisiontrees/Node.cpp.o
-
-src/decisiontrees/Node.i: src/decisiontrees/Node.cpp.i
-
-.PHONY : src/decisiontrees/Node.i
-
-# target to preprocess a source file
-src/decisiontrees/Node.cpp.i:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/src/decisiontrees/Node.cpp.i
-.PHONY : src/decisiontrees/Node.cpp.i
-
-src/decisiontrees/Node.s: src/decisiontrees/Node.cpp.s
-
-.PHONY : src/decisiontrees/Node.s
-
-# target to generate assembly for a file
-src/decisiontrees/Node.cpp.s:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/src/decisiontrees/Node.cpp.s
-.PHONY : src/decisiontrees/Node.cpp.s
-
-src/main.o: src/main.cpp.o
-
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+# fast build rule for target.
+treecheck/fast:
+	$(MAKE) -f tests/CMakeFiles/treecheck.dir/build.make tests/CMakeFiles/treecheck.dir/build
+.PHONY : treecheck/fast
 
 # Help Target
 help:
@@ -185,13 +155,9 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... deep"
-	@echo "... src/decisiontrees/Node.o"
-	@echo "... src/decisiontrees/Node.i"
-	@echo "... src/decisiontrees/Node.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... test"
+	@echo "... random_forest"
+	@echo "... treecheck"
 .PHONY : help
 
 

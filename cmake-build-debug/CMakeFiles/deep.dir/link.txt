@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/deep.dir/src/main.cpp.o CMakeFiles/deep.dir/src/decisiontrees/Node.cpp.o  -o deep /usr/local/lib/libdlib.a -lpthread /usr/lib/x86_64-linux-gnu/libnsl.so /usr/lib/x86_64-linux-gnu/libX11.so 

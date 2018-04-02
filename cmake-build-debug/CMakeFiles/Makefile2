@@ -54,45 +54,118 @@ RM = /opt/apps/clion/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fran/code/deep
+CMAKE_SOURCE_DIR = /home/fran/code/github/deep
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fran/code/deep/cmake-build-debug
+CMAKE_BINARY_DIR = /home/fran/code/github/deep/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/deep.dir
+# Directory level rules for directory random_forest
+
+# Convenience name for "all" pass in the directory.
+random_forest/all: random_forest/CMakeFiles/random_forest.dir/all
+
+.PHONY : random_forest/all
+
+# Convenience name for "clean" pass in the directory.
+random_forest/clean: random_forest/CMakeFiles/random_forest.dir/clean
+
+.PHONY : random_forest/clean
+
+# Convenience name for "preinstall" pass in the directory.
+random_forest/preinstall:
+
+.PHONY : random_forest/preinstall
+
+#=============================================================================
+# Target rules for target random_forest/CMakeFiles/random_forest.dir
 
 # All Build rule for target.
-CMakeFiles/deep.dir/all:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/depend
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fran/code/deep/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target deep"
-.PHONY : CMakeFiles/deep.dir/all
+random_forest/CMakeFiles/random_forest.dir/all:
+	$(MAKE) -f random_forest/CMakeFiles/random_forest.dir/build.make random_forest/CMakeFiles/random_forest.dir/depend
+	$(MAKE) -f random_forest/CMakeFiles/random_forest.dir/build.make random_forest/CMakeFiles/random_forest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fran/code/github/deep/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target random_forest"
+.PHONY : random_forest/CMakeFiles/random_forest.dir/all
 
 # Include target in all.
-all: CMakeFiles/deep.dir/all
+all: random_forest/CMakeFiles/random_forest.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/deep.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/deep/cmake-build-debug/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/deep.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/deep/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/deep.dir/rule
+random_forest/CMakeFiles/random_forest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/github/deep/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 random_forest/CMakeFiles/random_forest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/github/deep/cmake-build-debug/CMakeFiles 0
+.PHONY : random_forest/CMakeFiles/random_forest.dir/rule
 
 # Convenience name for target.
-deep: CMakeFiles/deep.dir/rule
+random_forest: random_forest/CMakeFiles/random_forest.dir/rule
 
-.PHONY : deep
-
-# clean rule for target.
-CMakeFiles/deep.dir/clean:
-	$(MAKE) -f CMakeFiles/deep.dir/build.make CMakeFiles/deep.dir/clean
-.PHONY : CMakeFiles/deep.dir/clean
+.PHONY : random_forest
 
 # clean rule for target.
-clean: CMakeFiles/deep.dir/clean
+random_forest/CMakeFiles/random_forest.dir/clean:
+	$(MAKE) -f random_forest/CMakeFiles/random_forest.dir/build.make random_forest/CMakeFiles/random_forest.dir/clean
+.PHONY : random_forest/CMakeFiles/random_forest.dir/clean
+
+# clean rule for target.
+clean: random_forest/CMakeFiles/random_forest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory tests
+
+# Convenience name for "all" pass in the directory.
+tests/all: tests/CMakeFiles/treecheck.dir/all
+
+.PHONY : tests/all
+
+# Convenience name for "clean" pass in the directory.
+tests/clean: tests/CMakeFiles/treecheck.dir/clean
+
+.PHONY : tests/clean
+
+# Convenience name for "preinstall" pass in the directory.
+tests/preinstall:
+
+.PHONY : tests/preinstall
+
+#=============================================================================
+# Target rules for target tests/CMakeFiles/treecheck.dir
+
+# All Build rule for target.
+tests/CMakeFiles/treecheck.dir/all:
+	$(MAKE) -f tests/CMakeFiles/treecheck.dir/build.make tests/CMakeFiles/treecheck.dir/depend
+	$(MAKE) -f tests/CMakeFiles/treecheck.dir/build.make tests/CMakeFiles/treecheck.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fran/code/github/deep/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target treecheck"
+.PHONY : tests/CMakeFiles/treecheck.dir/all
+
+# Include target in all.
+all: tests/CMakeFiles/treecheck.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+tests/CMakeFiles/treecheck.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/github/deep/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/treecheck.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fran/code/github/deep/cmake-build-debug/CMakeFiles 0
+.PHONY : tests/CMakeFiles/treecheck.dir/rule
+
+# Convenience name for target.
+treecheck: tests/CMakeFiles/treecheck.dir/rule
+
+.PHONY : treecheck
+
+# clean rule for target.
+tests/CMakeFiles/treecheck.dir/clean:
+	$(MAKE) -f tests/CMakeFiles/treecheck.dir/build.make tests/CMakeFiles/treecheck.dir/clean
+.PHONY : tests/CMakeFiles/treecheck.dir/clean
+
+# clean rule for target.
+clean: tests/CMakeFiles/treecheck.dir/clean
 
 .PHONY : clean
 

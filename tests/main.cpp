@@ -1,8 +1,8 @@
-#include "config.h"
-
 #include <decisiontrees/Node.h>
 #include <decisiontrees/NodeAlgorithms.h>
 #include <memory>
+#include <decisiontrees/Node.h>
+#include <stdexcept>
 
 using namespace deep;
 using namespace decisiontrees;
@@ -22,7 +22,8 @@ int main(int argc, char** argv)
     auto aa = NodeOps::BreadthFirstSearch((std::weak_ptr<Node<double>>)root);
     auto bb = NodeOps::DepthFirstSearch((std::weak_ptr<Node<double>>)root);
     std::for_each(bb.begin(),bb.end(),[&](std::weak_ptr<Node<double>>& node){std::cout<<node.lock()->name<<std::endl;});
-    return 0.0;
+    //throw new std::invalid_argument("Invalid tree");
+    return 0;
 }
 
 // ----------------------------------------------------------------------------------------
