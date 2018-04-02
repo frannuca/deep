@@ -1,0 +1,3 @@
+/home/fran/code/deep/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/fran/code/deep/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/fran/code/deep/cmake-build-debug/CMakeFiles/deep.dir

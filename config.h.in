@@ -1,0 +1,2 @@
+
+#undef DLIB_NO_GUI_SUPPORT
