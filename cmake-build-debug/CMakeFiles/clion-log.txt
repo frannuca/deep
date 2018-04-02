@@ -1,6 +1,0 @@
-/opt/apps/clion/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/fran/code/github/deep
--- CMAKE_BINARY_DIR:         /home/fran/code/github/deep
--- CMAKE_CURRENT_BINARY_DIR :         /home/fran/code/github/deep/cmake-build-debug/tests
--- Configuring done
--- Generating done
--- Build files have been written to: /home/fran/code/github/deep/cmake-build-debug
