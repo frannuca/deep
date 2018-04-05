@@ -2,7 +2,7 @@
 
 include_directories(${CMAKE_SOURCE_DIR}/tests  ${CMAKE_SOURCE_DIR}/random_forest/include) # include files from ProjectB
 
-add_executable(treecheck main.cpp)
+add_executable(treecheck random_forest.cpp)
 
 
 MESSAGE( STATUS "CMAKE_BINARY_DIR:         " ${CMAKE_SOURCE_DIR} )
