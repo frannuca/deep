@@ -34,5 +34,5 @@
 #Directories
 .idea/
 build/
-cmake-buil-*/
-test/testBin/
+cmake-build-*/
+tests/testBin/
