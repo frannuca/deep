@@ -2,7 +2,7 @@
 // Created by fran on 02.04.18.
 //
 #include <vector>
-#include <decisiontrees/Node.h>
+#include <hierarchy/Node.h>
 #include <queue>
 #include <memory>
 #include <stack>
@@ -21,7 +21,7 @@ namespace deep {
             static std::vector<std::weak_ptr<deep::decisiontrees::Node<C>>> DepthFirstSearch(std::shared_ptr<deep::decisiontrees::Node<C>> root);
 
             template<typename C>
-            static std::weak_ptr<deep::decisiontrees::Node<C>> FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root);
+            static std::weak_ptr<deep::decisiontrees::Node<C>> FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root,const std::string& nodename);
 
 
         };
@@ -59,9 +59,11 @@ namespace deep {
     }
 
     template<typename C>
-    std::weak_ptr<deep::decisiontrees::Node<C>> NodeOps::FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root){
+    std::weak_ptr<deep::decisiontrees::Node<C>> NodeOps::FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root,const std::string& nodename){
             auto nodes = BreadthFirstSearch(root);
-
+            auto iter = std::find_if(std::begin(nodes),std::end(nodes),[&nodename](const Node<C>& x){return x.name==nodename;});
+            if(iter != nodes.end()) return *iter;
+            else std::weak_ptr<deep::decisiontrees::Node<C>>();
         }
 
     }

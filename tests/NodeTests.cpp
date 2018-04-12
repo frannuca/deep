@@ -1,14 +1,21 @@
-#include <decisiontrees/Node.h>
-#include <decisiontrees/NodeAlgorithms.h>
+#define BOOST_TEST_DYN_LINK
+
+#define BOOST_TEST_MODULE "DeepTests"
+#include <boost/test/unit_test.hpp>
+
+#include <hierarchy/Node.h>
+#include <hierarchy/NodeAlgorithms.h>
 #include <memory>
-#include <decisiontrees/Node.h>
+#include <hierarchy/Node.h>
 #include <stdexcept>
 #include <algorithm>
 #include <cctype>
+#include <boost/test/unit_test.hpp>
+#include <boost/test/test_tools.hpp>
 
 using namespace deep;
 using namespace decisiontrees;
-int main(int argc, char** argv)
+BOOST_AUTO_TEST_CASE( trees )
 {
     auto root = std::shared_ptr<Node<double>>(new Node<double>("Root"));
     auto child1 = std::shared_ptr<Node<double>>(new Node<double>("Child1"));
@@ -30,17 +37,9 @@ int main(int argc, char** argv)
     std::vector<std::string> computedBreadthSeq;
     std::transform(std::begin(aa),std::end(aa),std::back_inserter(computedBreadthSeq),[](std::weak_ptr<Node<double>> node){return node.lock()->name;});
 
-    if(breadthSeq.size()!=computedBreadthSeq.size()){
-        throw "Invalid number of nodes returned by Breadth Search First alorithm";
-    }
-    else{
-        for(int i=0;i<breadthSeq.size();++i){
-            if(breadthSeq[i]!=computedBreadthSeq[i]){
-                throw "Invalid Node order. Node"+breadthSeq[i]+" is not matching returned "+computedBreadthSeq[i];
-            }
-        }
-    }
-    return 0;
+    BOOST_CHECK_MESSAGE(breadthSeq.size()==computedBreadthSeq.size(),"Invalid number of nodes returned by Breadth Search First alorithm");
+    //BOOST_EQUAL_COLLECTIONS(breadthSeq.begin(),breadthSeq.end(),computedBreadthSeq.begin(),computedBreadthSeq.end());
+
 }
 
 // ----------------------------------------------------------------------------------------
