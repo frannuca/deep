@@ -6,6 +6,9 @@
 #include <queue>
 #include <memory>
 #include <stack>
+#include <boost/archive/xml_oarchive.hpp>
+#include <fstream>
+#include <boost/archive/xml_iarchive.hpp>
 
 #ifndef DEEP_NODEALGORITHMS_H
 #define DEEP_NODEALGORITHMS_H
@@ -26,6 +29,20 @@ namespace deep {
             template<typename C>
             static  std::string Print(const deep::hierarchy::Node <C>* root);
 
+            template<typename C>
+            static std::string toXml(const Node<C>* root);
+
+            template<typename C>
+            static void WritetoFile(const Node<C>* root,std::string filename);
+
+            template<typename C>
+            static Node<C>* LoadFromStream( std::istream& is);
+
+            template<typename C>
+            static Node<C>* LoadFromXmlString(const std::string &xmlstring);
+
+            template<typename C>
+            static Node<C>* LoadFromFile(const std::string &fileLocation);
         };
 
         template<typename C>
@@ -83,6 +100,51 @@ namespace deep {
 
             return os.str();
         }
+
+        template<typename C>
+        std::string NodeOps::toXml(const Node <C> *root) {
+            // make an archive
+            std::ostringstream oss;
+            boost::archive::xml_oarchive oa(oss);
+            oa << BOOST_SERIALIZATION_NVP(root);
+            return oss.str();
+        }
+
+        template<typename C>
+        void NodeOps::WritetoFile(const Node <C> *root,std::string filename) {
+            std::ofstream of(filename);
+            boost::archive::xml_oarchive oa(of);
+            oa << BOOST_SERIALIZATION_NVP(root);
+        }
+
+        template<typename C>
+        Node <C> *NodeOps::LoadFromStream(std::istream &is) {
+
+            Node<C> * root = new Node<C>("");
+            boost::archive::xml_iarchive ia(is);
+            // restore the schedule from the archive
+            ia >> BOOST_SERIALIZATION_NVP(*root);
+            return root;
+        }
+
+        template<typename C>
+        Node <C> *NodeOps::LoadFromXmlString(const std::string &is) {
+            std::istringstream iss(is);
+            return NodeOps::LoadFromStream<C>(iss);
+        }
+
+        template<typename C>
+        Node <C> *NodeOps::LoadFromFile(const std::string &fileLocation) {
+            std::ifstream ifs(fileLocation.c_str());
+            if(ifs.good()){
+                return NodeOps::LoadFromStream<C>(ifs);
+            }
+            else{
+                return nullptr;
+            }
+        }
+
+
     }
 
     }

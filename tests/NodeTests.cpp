@@ -67,34 +67,30 @@ Node<double>* createTest(const std::string& fileLocation)
 
     child2->AddChildren(child21,child22,child23);
 
-    saveTest( *root, fileLocation.c_str() );
+    NodeOps::WritetoFile(root,fileLocation);
 
     return root;
 }
 
 void
-restore_schedule(Node<double> *s, const char * filename)
+restore_schedule(Node<double> *&s, const char * filename)
 {
     // open the archive
-    std::ifstream ifs(filename);
-    assert(ifs.good());
-    boost::archive::xml_iarchive ia(ifs);
+    s=NodeOps::LoadFromFile<double>(filename);
 
-    // restore the schedule from the archive
-    ia >> BOOST_SERIALIZATION_NVP(*s);
 }
 
 BOOST_AUTO_TEST_CASE( trees )
 {
     std::string filename = "/home/fran/tmp/tree";
     auto root0= createTest(filename);
-    Node<double>* root = new Node<double>("root");
+    Node<double>* root = new Node<double>("dummy");
     restore_schedule(root,filename.c_str());
     std::cout<<"finished \n";
 
     std::cout<<NodeOps::Print(root0)<<std::endl;
 
-    
+
     std::cout<<NodeOps::Print(root)<<std::endl;
     BOOST_CHECK_MESSAGE(root0->toString()==root->toString(),"Deserialized node does not match original");
 

@@ -1,7 +1,6 @@
 //
 // Created by fran on 01.04.18.
 //
-
 #ifndef DEEP_NODE_H
 #define DEEP_NODE_H
 
@@ -22,21 +21,39 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/ptr_container/serialize_ptr_vector.hpp>
+
+
 namespace deep {
     namespace hierarchy {
 
+        /**
+         * \brief  Node defines a unit within a acyclic graph.
+         *
+         * Node is used as the unit building block of acyclic dependency tree.
+         * @tparam T
+         */
         template<typename T>
         class Node {
         public:
 
+            /**
+             * construct a new node with the provided name. Other member such as parent or children are left as default
+             * @param name : Name of the node
+             */
             explicit Node(const std::string &name);
 
-            Node();
-            Node(const std::string &name, const T &data, Node<T>* parent= nullptr);
 
-            Node(const std::string &name, T &&data, Node<T>* parent= nullptr);
 
-            Node(const Node<T> &that);
+            /**
+             * Initializes a new node with the provided name, data and parent
+             * @param name Name of the node
+             * @param data Data object to be copied into the internal data member.
+             * @param parent pointer to the parent node
+             */
+            Node(const std::string &name, const T &data, std::unique_ptr<Node<T>> parent= nullptr);
+
+            Node(const std::string &name, T &&data, std::unique_ptr<Node<T>> parent= nullptr);
+
 
             int depth() const;
 
@@ -57,6 +74,11 @@ namespace deep {
             typename boost::ptr_vector<Node<T>>::iterator end() const ;
 
         private:
+            /**
+             * Default ctors. This constructure is only used for serialization operations
+             */
+            Node();
+            Node(const Node<T> &that);
             template<typename... Args>
             void AddChildren();
 
@@ -87,12 +109,12 @@ namespace deep {
         }
 
         template<typename T>
-        Node<T>::Node(const std::string &name, const T &data, Node<T>* parent):m_parent(parent),_name(name),_uuid(boost::uuids::to_string(generator())) {
+        Node<T>::Node(const std::string &name, const T &data, std::unique_ptr<Node<T>> parent):m_parent(parent.get()),_name(name),_uuid(boost::uuids::to_string(generator())) {
             m_data=data;
         }
 
         template<typename T>
-        Node<T>::Node(const std::string &name,  T &&data, Node<T>* parent):m_parent(parent),_name(name),_uuid(boost::uuids::to_string(generator())) {
+        Node<T>::Node(const std::string &name,  T &&data, std::unique_ptr<Node<T>> parent):m_parent(parent.get()),_name(name),_uuid(boost::uuids::to_string(generator())) {
             m_data= std::move(data);
         }
 
@@ -148,7 +170,8 @@ namespace deep {
 
         template<typename T>
         Node<T>::Node(const Node<T> &that):_name(that._name),_uuid(that._uuid),m_children(that.m_children),m_parent(that.m_parent) {
-
+            that.m_children.clear();
+            auto thatagain = that.m_children;
         }
 
         template<typename T>
