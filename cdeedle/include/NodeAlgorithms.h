@@ -10,33 +10,35 @@
 #ifndef DEEP_NODEALGORITHMS_H
 #define DEEP_NODEALGORITHMS_H
 namespace deep {
-    namespace decisiontrees {
+    namespace hierarchy {
 
         class NodeOps{
         public:
             template<typename C>
-            static std::vector<std::weak_ptr<deep::decisiontrees::Node<C>>> BreadthFirstSearch(std::shared_ptr<deep::decisiontrees::Node<C>> root);
+            static std::vector<const deep::hierarchy::Node<C>*> BreadthFirstSearch(const deep::hierarchy::Node <C>* root);
 
             template<typename C>
-            static std::vector<std::weak_ptr<deep::decisiontrees::Node<C>>> DepthFirstSearch(std::shared_ptr<deep::decisiontrees::Node<C>> root);
+            static  std::vector<const deep::hierarchy::Node<C>*>  DepthFirstSearch(const deep::hierarchy::Node <C>* root);
 
             template<typename C>
-            static std::weak_ptr<deep::decisiontrees::Node<C>> FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root,const std::string& nodename);
+            static std::weak_ptr<deep::hierarchy::Node<C>> FindNode(std::shared_ptr<deep::hierarchy::Node<C>> root,const std::string& nodename);
 
+            template<typename C>
+            static  std::string Print(const deep::hierarchy::Node <C>* root);
 
         };
 
         template<typename C>
-        std::vector<std::weak_ptr<deep::decisiontrees::Node<C>>> deep::decisiontrees::NodeOps::BreadthFirstSearch(std::shared_ptr<deep::decisiontrees::Node <C>> root) {
-            std::queue<std::shared_ptr<deep::decisiontrees::Node<C>>> queue;
+        std::vector<const deep::hierarchy::Node<C>*> deep::hierarchy::NodeOps::BreadthFirstSearch(const deep::hierarchy::Node <C>* root) {
+            std::queue<const deep::hierarchy::Node<C>*> queue;
             queue.push(root);
-            std::vector<std::weak_ptr<Node<C>>> listofnodes;
+            std::vector<const Node<C>*> listofnodes;
             while(!queue.empty()){
-                auto node = queue.front();
+                const Node<C>* node = queue.front();
                 queue.pop();
                 listofnodes.push_back(node);
-                for(auto child: node->m_children){
-                    queue.push(child);
+                for(auto child= node->begin();child != node->end();++child){
+                    queue.push(&*child);
                 }
             }
 
@@ -44,28 +46,43 @@ namespace deep {
         }
 
         template<typename C>
-        std::vector<std::weak_ptr<deep::decisiontrees::Node< C>>>  NodeOps::DepthFirstSearch(std::shared_ptr<deep::decisiontrees::Node < C>> root) {
-        std::stack<std::shared_ptr< deep::decisiontrees::Node<C>> > stack;
-        stack.push(root);
-        std::vector<std::weak_ptr<deep::decisiontrees::Node<C>>> listofnodes;
-        while(!stack.empty()){
-            auto node = stack.top();
-            stack.pop();
-            listofnodes.push_back(node);
-            std::for_each(node->m_children.begin(),node->m_children.end(),[&stack](std::shared_ptr<Node<C>> piter){stack.push(piter);});
-        }
-        
-        return listofnodes;
-    }
+        std::vector<const deep::hierarchy::Node<C>*> deep::hierarchy::NodeOps::DepthFirstSearch(const deep::hierarchy::Node <C>* root) {
+            std::stack<const deep::hierarchy::Node<C>*> stack;
+            stack.push(root);
+            std::vector<const Node<C>*> listofnodes;
+            while(!stack.empty()){
+                const Node<C>* node = stack.top();
+                stack.pop();
+                listofnodes.push_back(node);
+                for(auto child= node->begin();child != node->end();++child){
+                    const Node<C>& p = *child;
+                    stack.push(&p);
+                }
+            }
 
-    template<typename C>
-    std::weak_ptr<deep::decisiontrees::Node<C>> NodeOps::FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root,const std::string& nodename){
-            auto nodes = BreadthFirstSearch(root);
-            auto iter = std::find_if(nodes.begin(),nodes.end(),[&nodename](std::weak_ptr<Node<C>>& x){return x.lock()->Name()==nodename;});
-            if(iter != nodes.end()) return *iter;
-            else std::weak_ptr<deep::decisiontrees::Node<C>>();
+            return listofnodes;
         }
 
+
+//    template<typename C>
+//    std::weak_ptr<deep::hierarchy::Node<C>> NodeOps::FindNode(std::shared_ptr<deep::hierarchy::Node<C>> root,const std::string& nodename){
+//            auto nodes = BreadthFirstSearch(root);
+//            auto iter = std::find_if(nodes.begin(),nodes.end(),[&nodename](std::weak_ptr<Node<C>>& x){return x.lock()->Name()==nodename;});
+//            if(iter != nodes.end()) return *iter;
+//            else std::weak_ptr<deep::hierarchy::Node<C>>();
+//        }
+
+        template<typename C>
+        std::string NodeOps::Print(const Node <C> *root) {
+            std::ostringstream os;
+            auto nodes = DepthFirstSearch(root);
+
+            for(const Node<C>* node:nodes){
+                os<<node->toString()<<std::endl;
+            }
+
+            return os.str();
+        }
     }
 
     }

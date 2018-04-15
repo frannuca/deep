@@ -19,105 +19,180 @@
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <boost/uuid/uuid_io.hpp>         // streaming operators etc.
 #include <boost/uuid/uuid_io.hpp>
-
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/ptr_container/serialize_ptr_vector.hpp>
 namespace deep {
-    namespace decisiontrees {
+    namespace hierarchy {
 
         template<typename T>
-        class Node : public std::enable_shared_from_this<Node<T>> {
+        class Node {
+        public:
+
+            explicit Node(const std::string &name);
+
+            Node();
+            Node(const std::string &name, const T &data, Node<T>* parent= nullptr);
+
+            Node(const std::string &name, T &&data, Node<T>* parent= nullptr);
+
+            Node(const Node<T> &that);
+
+            int depth() const;
+
+            std::string toString() const;
+
+            template<typename... Args>
+            void AddChildren(Node<T>* first, Args... args);
+
+
+            std::string _name;
+            std::string _uuid;
+
+            const Node<T>& GetChild(int n);
+
+            T& Data() const;
+            void set_parent(Node<T>* p);
+            typename boost::ptr_vector<Node<T>>::iterator begin() const;
+            typename boost::ptr_vector<Node<T>>::iterator end() const ;
+
+        private:
+            template<typename... Args>
+            void AddChildren();
+
+            friend class boost::serialization::access;
+            template<class Archive>
+            void serialize(Archive & ar, const unsigned int version);
+
+
+            Node(Node<T> &&that);
+            Node<T> &operator=(const Node<T> &that);
+            Node<T> &operator=(Node<T> &&that);
+
         protected:
-            const std::string _name;
-            const std::string _uuid;
-            T m_data;
-            std::vector<std::shared_ptr<Node<T> > >  m_children;
-            std::weak_ptr<Node<T>> m_parent;
 
             static boost::uuids::random_generator generator;
-        public:
-            Node(const std::string& nodeName);
-            Node(std::string&& nodeName);
+            mutable boost::ptr_vector<Node<T>> m_children;
+            Node<T>* m_parent;
+            mutable T m_data;
 
-            std::weak_ptr<Node<T>>  withChildren(std::initializer_list<std::shared_ptr<Node<T>>> children);
-            void RemoveChild(std::shared_ptr<Node<T>> child);
-            bool HasChild(std::shared_ptr<Node<T>> child);
-            std::weak_ptr<Node<T>> withParent(std::weak_ptr<Node<T>> parent);
-            std::weak_ptr<Node<T>> withData(T&& data);
-            std::weak_ptr<Node<T>> withData(const T& data);
-            const std::string& Name() const;
-            const std::string& Uuid() const;
-
-
-            bool operator==(const Node<T>& rhs){
-                return this->_name == rhs._name;
-            }
-
-            friend class NodeOps;
         };
 
         template<typename T>
         boost::uuids::random_generator Node<T>::generator;
+
         template<typename T>
-        Node<T>::Node(const std::string& nodeName):_name(nodeName),_uuid(boost::uuids::to_string(generator())){
+        Node<T>::Node(const std::string &name):_name(name),_uuid(boost::uuids::to_string(generator())) {
+
         }
+
         template<typename T>
-        Node<T>::Node(std::string&& nodeName):_name(nodeName),_uuid(boost::uuids::to_string(generator())){
+        Node<T>::Node(const std::string &name, const T &data, Node<T>* parent):m_parent(parent),_name(name),_uuid(boost::uuids::to_string(generator())) {
+            m_data=data;
+        }
+
+        template<typename T>
+        Node<T>::Node(const std::string &name,  T &&data, Node<T>* parent):m_parent(parent),_name(name),_uuid(boost::uuids::to_string(generator())) {
+            m_data= std::move(data);
+        }
+
+        template<typename T>
+        template<class Archive>
+        void Node<T>::serialize(Archive &ar, const unsigned int version) {
+
+            ar & boost::serialization::make_nvp("children", m_children);
+            ar & boost::serialization::make_nvp("parent", m_parent);
+            ar & boost::serialization::make_nvp("name", _name);
+            ar & boost::serialization::make_nvp("uuid", _uuid);
+            ar & boost::serialization::make_nvp("data", m_data);
+
         }
 
 
-        template <typename T>
-        std::weak_ptr<Node<T>> Node<T>::withChildren(std::initializer_list<std::shared_ptr<Node<T>>> children){
-            auto ptr = this->shared_from_this();
-            for(auto child: children){
-                if(!HasChild(child)){
-                    m_children.push_back(child);
-                    if(child->m_parent.lock() != ptr){
-                        child->withParent(ptr);
-                    }
+
+        template<typename T>
+        T &Node<T>::Data() const{
+            return m_data;
+        }
+
+        template<typename T>
+        const Node<T>& Node<T>::GetChild(int n) {
+            return m_children.at(0);
+        }
+
+        template<typename T>
+        typename boost::ptr_vector<Node<T>>::iterator
+        Node<T>::begin() const {
+            return m_children.begin();
+        }
+
+        template<typename T>
+        typename boost::ptr_vector<Node<T>>::iterator
+        Node<T>::end() const {
+            return m_children.end();
+        }
+
+        template<typename T>
+        template<typename... Args>
+        void Node<T>::AddChildren() {
+
+        }
+
+        template<typename T>
+        template<typename... Args>
+        void Node<T>::AddChildren(Node<T> *first, Args... args) {
+            m_children.push_back(first);
+            first->set_parent(this);
+            AddChildren(args ...);
+        }
+
+        template<typename T>
+        Node<T>::Node(const Node<T> &that):_name(that._name),_uuid(that._uuid),m_children(that.m_children),m_parent(that.m_parent) {
+
+        }
+
+        template<typename T>
+        Node<T>::Node() {
+
+        }
+
+        template<typename T>
+        int Node<T>::depth() const {
+            int depth=0;
+            int maxdepth=20000;
+            const Node<T>* node = this;
+            while(node->m_parent != nullptr){
+                ++depth;
+                if(depth>maxdepth){
+                    throw "cyclic tree detected while computing depth";
                 }
+                node = node->m_parent;
             }
-            return this->shared_from_this();
+
+            return depth;
+
+        }
+
+
+
+        template<typename T>
+        void Node<T>::set_parent(Node<T> *p) {
+            this->m_parent=p;
         }
 
         template<typename T>
-        void Node<T>::RemoveChild(std::shared_ptr<Node<T>> child) {
-                m_children.erase(std::remove(m_children.begin(),m_children.end(),child));
+        std::string Node<T>::toString() const {
+            std::ostringstream os;
+            auto d = depth();
+            os<<std::string(depth(),'\t')<<_name<<"("<<_uuid<<","<<m_data<<")";
+
+            return os.str();
         }
 
-        template<typename T>
-        bool Node<T>::HasChild(std::shared_ptr<Node<T>> child) {
-            return std::find(m_children.begin(),m_children.end(),child) != m_children.end();
-        }
 
-        template<typename T>
-        std::weak_ptr<Node<T>> Node<T>::withData(T &&data) {
-            m_data=data;
-            return this->shared_from_this();
-
-        }
-
-        template<typename T>
-        std::weak_ptr<Node<T>> Node<T>::withData(const T &data) {
-            m_data=data;
-            return this->shared_from_this();
-        }
-
-        template<typename T>
-        std::weak_ptr<Node<T>>  Node<T>::withParent(std::weak_ptr<Node<T>> parent) {
-            m_parent = parent;
-            m_parent.lock()->withChildren({this->shared_from_this()});
-            return this->shared_from_this();
-        }
-
-        template<typename T>
-        const std::string &Node<T>::Name() const {
-            return _name;
-        }
-
-        template<typename T>
-        const std::string &Node<T>::Uuid() const {
-            return _uuid;
-        }
     }
 }
 
 #endif //DEEP_NODE_H
+
+
