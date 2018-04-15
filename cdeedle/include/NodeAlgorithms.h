@@ -24,7 +24,7 @@ namespace deep {
             static  std::vector<const deep::hierarchy::Node<C>*>  DepthFirstSearch(const deep::hierarchy::Node <C>* root);
 
             template<typename C>
-            static std::weak_ptr<deep::hierarchy::Node<C>> FindNode(std::shared_ptr<deep::hierarchy::Node<C>> root,const std::string& nodename);
+            static const deep::hierarchy::Node<C>* FindNode(const deep::hierarchy::Node<C>* root,const std::string& nodename);
 
             template<typename C>
             static  std::string Print(const deep::hierarchy::Node <C>* root);
@@ -54,7 +54,7 @@ namespace deep {
                 const Node<C>* node = queue.front();
                 queue.pop();
                 listofnodes.push_back(node);
-                for(auto child= node->begin();child != node->end();++child){
+                for(auto child: node->Children()){
                     queue.push(&*child);
                 }
             }
@@ -71,7 +71,7 @@ namespace deep {
                 const Node<C>* node = stack.top();
                 stack.pop();
                 listofnodes.push_back(node);
-                for(auto child= node->begin();child != node->end();++child){
+                for(auto child:node->Children()){
                     const Node<C>& p = *child;
                     stack.push(&p);
                 }
@@ -142,6 +142,16 @@ namespace deep {
             else{
                 return nullptr;
             }
+        }
+
+        template<typename C>
+        const deep::hierarchy::Node<C>* NodeOps::FindNode(const Node <C> *root, const std::string &nodename) {
+            std::vector<const deep::hierarchy::Node<C>*>  nodes = BreadthFirstSearch(root);
+            auto item=std::find_if(nodes.begin(),nodes.end(),[&nodename](const Node<C>* x){return x->Name()==nodename;});
+            if(item != nodes.end())
+                return *item;
+            else
+                return nullptr;
         }
 
 

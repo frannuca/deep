@@ -62,18 +62,20 @@ namespace deep {
             template<typename... Args>
             void AddChildren(Node<T>* first, Args... args);
 
+            std::string Name() const;
+            std::string UUID() const;
 
-            std::string _name;
-            std::string _uuid;
 
             const Node<T>& GetChild(int n);
 
             T& Data() const;
             void set_parent(Node<T>* p);
-            typename boost::ptr_vector<Node<T>>::iterator begin() const;
-            typename boost::ptr_vector<Node<T>>::iterator end() const ;
+            typename std::vector<const Node<T>*> Children() const;
+
 
         private:
+            std::string _name;
+            std::string _uuid;
             /**
              * Default ctors. This constructure is only used for serialization operations
              */
@@ -142,17 +144,7 @@ namespace deep {
             return m_children.at(0);
         }
 
-        template<typename T>
-        typename boost::ptr_vector<Node<T>>::iterator
-        Node<T>::begin() const {
-            return m_children.begin();
-        }
 
-        template<typename T>
-        typename boost::ptr_vector<Node<T>>::iterator
-        Node<T>::end() const {
-            return m_children.end();
-        }
 
         template<typename T>
         template<typename... Args>
@@ -210,6 +202,23 @@ namespace deep {
             os<<std::string(depth(),'\t')<<_name<<"("<<_uuid<<","<<m_data<<")";
 
             return os.str();
+        }
+
+        template<typename T>
+        std::vector<const Node<T> *> Node<T>::Children() const {
+            std::vector<const Node<T> *> v;
+            std::transform(m_children.begin(),m_children.end(),std::back_inserter(v),[](const Node<T>& x){return &x;});
+            return v;
+        }
+
+        template<typename T>
+        std::string Node<T>::Name() const  {
+            return _name;
+        }
+
+        template<typename T>
+        std::string Node<T>::UUID() const {
+            return _uuid;
         }
 
 
