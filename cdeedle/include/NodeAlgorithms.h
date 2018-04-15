@@ -2,7 +2,7 @@
 // Created by fran on 02.04.18.
 //
 #include <vector>
-#include <hierarchy/Node.h>
+#include <Node.h>
 #include <queue>
 #include <memory>
 #include <stack>
@@ -61,7 +61,7 @@ namespace deep {
     template<typename C>
     std::weak_ptr<deep::decisiontrees::Node<C>> NodeOps::FindNode(std::shared_ptr<deep::decisiontrees::Node<C>> root,const std::string& nodename){
             auto nodes = BreadthFirstSearch(root);
-            auto iter = std::find_if(std::begin(nodes),std::end(nodes),[&nodename](const Node<C>& x){return x.name==nodename;});
+            auto iter = std::find_if(nodes.begin(),nodes.end(),[&nodename](std::weak_ptr<Node<C>>& x){return x.lock()->Name()==nodename;});
             if(iter != nodes.end()) return *iter;
             else std::weak_ptr<deep::decisiontrees::Node<C>>();
         }

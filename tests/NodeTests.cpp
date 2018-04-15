@@ -3,10 +3,10 @@
 #define BOOST_TEST_MODULE "DeepTests"
 #include <boost/test/unit_test.hpp>
 
-#include <hierarchy/Node.h>
-#include <hierarchy/NodeAlgorithms.h>
+#include <Node.h>
+#include <NodeAlgorithms.h>
 #include <memory>
-#include <hierarchy/Node.h>
+#include <Node.h>
 #include <stdexcept>
 #include <algorithm>
 #include <cctype>
@@ -31,14 +31,17 @@ BOOST_AUTO_TEST_CASE( trees )
 
     auto aa = NodeOps::BreadthFirstSearch((std::shared_ptr<Node<double>>)root);
     auto bb = NodeOps::DepthFirstSearch((std::shared_ptr<Node<double>>)root);
-    std::for_each(bb.begin(),bb.end(),[&](std::weak_ptr<Node<double>>& node){std::cout<<node.lock()->name<<std::endl;});
+    std::for_each(bb.begin(),bb.end(),[&](std::weak_ptr<Node<double>>& node){std::cout<<node.lock()->Name()<<std::endl;});
 
     std::vector<std::string> breadthSeq = {"Root","Child1","Child2","Child11"};
     std::vector<std::string> computedBreadthSeq;
-    std::transform(std::begin(aa),std::end(aa),std::back_inserter(computedBreadthSeq),[](std::weak_ptr<Node<double>> node){return node.lock()->name;});
+    std::transform(std::begin(aa),std::end(aa),std::back_inserter(computedBreadthSeq),[](std::weak_ptr<Node<double>> node){return node.lock()->Name();});
 
     BOOST_CHECK_MESSAGE(breadthSeq.size()==computedBreadthSeq.size(),"Invalid number of nodes returned by Breadth Search First alorithm");
     //BOOST_EQUAL_COLLECTIONS(breadthSeq.begin(),breadthSeq.end(),computedBreadthSeq.begin(),computedBreadthSeq.end());
+
+    auto child11_found = NodeOps::FindNode(root,"Child11");
+    BOOST_CHECK(child11_found.lock()->Name()==child11->Name());
 
 }
 

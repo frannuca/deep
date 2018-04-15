@@ -3,7 +3,7 @@ project(deep)
 set(CMAKE_CXX_STANDARD 11)
 
 
-add_subdirectory(dataframework)
+add_subdirectory(cdeedle)
 add_subdirectory(tests)
 
 enable_testing()

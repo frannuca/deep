@@ -2,7 +2,7 @@ enable_testing()
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 include_directories (${Boost_INCLUDE_DIRS})
-include_directories(${CMAKE_SOURCE_DIR}/dataframework/include)
+include_directories(${CMAKE_SOURCE_DIR}/cdeedle/include)
 #I like to keep test files in a separate source directory called test
 file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 

@@ -15,21 +15,23 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
-#include <boost/uuid/uuid.hpp>            // uuid class
+#include <boost/uuid/uuid.hpp>            // _uuid class
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <boost/uuid/uuid_io.hpp>         // streaming operators etc.
 #include <boost/uuid/uuid_io.hpp>
+
 namespace deep {
     namespace decisiontrees {
 
         template<typename T>
         class Node : public std::enable_shared_from_this<Node<T>> {
-        public:
-            std::string name;
-            std::string uuid;
+        protected:
+            const std::string _name;
+            const std::string _uuid;
             T m_data;
             std::vector<std::shared_ptr<Node<T> > >  m_children;
             std::weak_ptr<Node<T>> m_parent;
+
             static boost::uuids::random_generator generator;
         public:
             Node(const std::string& nodeName);
@@ -41,24 +43,24 @@ namespace deep {
             std::weak_ptr<Node<T>> withParent(std::weak_ptr<Node<T>> parent);
             std::weak_ptr<Node<T>> withData(T&& data);
             std::weak_ptr<Node<T>> withData(const T& data);
+            const std::string& Name() const;
+            const std::string& Uuid() const;
+
 
             bool operator==(const Node<T>& rhs){
-                return this->name == rhs.name;
+                return this->_name == rhs._name;
             }
 
+            friend class NodeOps;
         };
 
         template<typename T>
         boost::uuids::random_generator Node<T>::generator;
         template<typename T>
-        Node<T>::Node(const std::string& nodeName):name(nodeName){
-            boost::uuids::uuid uuid1 = generator();
-            uuid = boost::uuids::to_string(uuid1);
+        Node<T>::Node(const std::string& nodeName):_name(nodeName),_uuid(boost::uuids::to_string(generator())){
         }
         template<typename T>
-        Node<T>::Node(std::string&& nodeName):name(nodeName){
-            boost::uuids::uuid uuid1 = generator();
-            uuid = boost::uuids::to_string(uuid1);
+        Node<T>::Node(std::string&& nodeName):_name(nodeName),_uuid(boost::uuids::to_string(generator())){
         }
 
 
@@ -104,6 +106,16 @@ namespace deep {
             m_parent = parent;
             m_parent.lock()->withChildren({this->shared_from_this()});
             return this->shared_from_this();
+        }
+
+        template<typename T>
+        const std::string &Node<T>::Name() const {
+            return _name;
+        }
+
+        template<typename T>
+        const std::string &Node<T>::Uuid() const {
+            return _uuid;
         }
     }
 }
