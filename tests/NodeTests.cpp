@@ -101,8 +101,13 @@ BOOST_AUTO_TEST_CASE( trees )
     }
 
 
-    auto child11_found = NodeOps::FindNode<double>(root,"child11");
+    const Node<double>* child11_found = NodeOps::FindNode<double>(root,"child11");
     BOOST_CHECK_MESSAGE(child11_found!= nullptr,"Finding node child11 failed");
+
+    NodeOps::RemoveNodeFromHierarchy(root,child11_found->Name());
+    const Node<double>* child11_foundbis = NodeOps::FindNode<double>(root,"child11");
+    BOOST_CHECK_MESSAGE(child11_foundbis== nullptr,"The node was not removed!!");
+
 
 }
 

@@ -43,6 +43,9 @@ namespace deep {
 
             template<typename C>
             static Node<C>* LoadFromFile(const std::string &fileLocation);
+
+            template<typename C>
+                    static void RemoveNodeFromHierarchy(const Node<C>* root,const std::string& nodename);
         };
 
         template<typename C>
@@ -154,8 +157,14 @@ namespace deep {
                 return nullptr;
         }
 
-
+        template<typename C>
+        void NodeOps::RemoveNodeFromHierarchy(const Node <C> *root,const std::string& nodename) {
+            auto nodes = BreadthFirstSearch(root);
+            auto item = FindNode(root,nodename);
+            if(item!= nullptr){
+                 item->Parent()->RemoveChild(item);
+            }
+        }
     }
-
     }
 #endif //DEEP_NODEALGORITHMS_H

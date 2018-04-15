@@ -68,10 +68,14 @@ namespace deep {
 
             const Node<T>& GetChild(int n);
 
+            const void RemoveChild(const Node<T>* child) const;
+
             T& Data() const;
             void set_parent(Node<T>* p);
             typename std::vector<const Node<T>*> Children() const;
 
+            const Node<T>* Parent() const;
+            Node<T> &operator=(Node<T> &&that);
 
         private:
             std::string _name;
@@ -91,7 +95,7 @@ namespace deep {
 
             Node(Node<T> &&that);
             Node<T> &operator=(const Node<T> &that);
-            Node<T> &operator=(Node<T> &&that);
+
 
         protected:
 
@@ -162,8 +166,6 @@ namespace deep {
 
         template<typename T>
         Node<T>::Node(const Node<T> &that):_name(that._name),_uuid(that._uuid),m_children(that.m_children),m_parent(that.m_parent) {
-            that.m_children.clear();
-            auto thatagain = that.m_children;
         }
 
         template<typename T>
@@ -219,6 +221,16 @@ namespace deep {
         template<typename T>
         std::string Node<T>::UUID() const {
             return _uuid;
+        }
+
+        template<typename T>
+        const void Node<T>::RemoveChild(const Node<T> *child) const {
+            m_children.erase(std::find_if(m_children.begin(),m_children.end(),[&child](Node<T> const & item){return item.UUID()==child->UUID();}));
+        }
+
+        template<typename T>
+        const Node<T> *Node<T>::Parent() const {
+            return m_parent;
         }
 
 
