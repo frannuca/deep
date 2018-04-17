@@ -83,15 +83,6 @@ namespace deep {
             return listofnodes;
         }
 
-
-//    template<typename C>
-//    std::weak_ptr<deep::hierarchy::Node<C>> NodeOps::FindNode(std::shared_ptr<deep::hierarchy::Node<C>> root,const std::string& nodename){
-//            auto nodes = BreadthFirstSearch(root);
-//            auto iter = std::find_if(nodes.begin(),nodes.end(),[&nodename](std::weak_ptr<Node<C>>& x){return x.lock()->Name()==nodename;});
-//            if(iter != nodes.end()) return *iter;
-//            else std::weak_ptr<deep::hierarchy::Node<C>>();
-//        }
-
         template<typename C>
         std::string NodeOps::Print(const Node <C> *root) {
             std::ostringstream os;

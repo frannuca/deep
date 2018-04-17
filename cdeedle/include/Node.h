@@ -232,8 +232,6 @@ namespace deep {
         const Node<T> *Node<T>::Parent() const {
             return m_parent;
         }
-
-
     }
 }
 
