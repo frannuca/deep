@@ -4,5 +4,6 @@ set(CMAKE_CXX_STANDARD 11)
 
 
 add_subdirectory(cdeedle)
+add_subdirectory(GP)
 add_subdirectory(tests)
 
