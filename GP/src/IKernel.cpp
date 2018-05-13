@@ -19,8 +19,9 @@ void printmatrix(const std::string& name,const arma::mat& m){
     }
 }
 
-void deep::GP::IKernel::Compute(const std::vector<std::tuple<double, double>> &values, const std::vector<double> &xnew,
-                                arma::mat &mu, arma::mat &cov) {
+void
+deep::GP::IKernel::Compute(const std::vector<std::tuple<double, double>> &values, const std::vector<double> &xnew, arma::mat &mu,
+                           arma::mat &cov, arma::mat &K) {
 
     int szOld = values.size();
     int szNew = xnew.size();
@@ -77,9 +78,35 @@ void deep::GP::IKernel::Compute(const std::vector<std::tuple<double, double>> &v
     arma::mat yvec(y);
     mu = Kon.t() * iKoo * yvec;
     cov = Knn - Kon.t()*iKoo*Kon;
+
+    K=Kt;
 }
 
 deep::GP::IKernel::IKernel() {
 
 }
 
+void deep::GP::IKernel::ComputeKernelMatrix(const std::vector<std::tuple<double, double>> &values, arma::mat &K,
+                                            std::vector<double> &x, std::vector<double> &y) {
+
+    x.clear();
+    y.clear();
+
+    arma::mat Koo(values.size(),values.size(),arma::fill::zeros);
+    for(int i=0;i<values.size();++i){
+
+        double xi,yi;
+        std::tie(xi,yi)=values.at(i);
+        x.push_back(xi);
+        y.push_back(yi);
+
+        for(int j=0;j<values.size();++j){
+            double xj,yj;
+            std::tie(xj,yj)=values.at(j);
+            double aa =kernel(xi,xj);
+            Koo(i,j)=aa;
+        }
+
+        K=Koo;
+    }
+}

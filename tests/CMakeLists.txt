@@ -21,12 +21,14 @@ foreach(testSrc ${TEST_SRCS})
     #Add compile target
     add_executable(${testName} ${testSrc})
 
+    link_directories(/usr/local/lib)
     #link to Boost libraries AND your targets and dependencies
-    target_link_libraries(${testName} ${Boost_LIBRARIES} cdeedle GP boost_serialization armadillo)
+    target_link_libraries(${testName} ${Boost_LIBRARIES} cdeedle GP boost_serialization armadillo nlopt)
 
     #I like to move testing binaries into a testBin directory
     set_target_properties(${testName} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}/testBin)
+
 
     #Finally add it to test execution -
     #Notice the WORKING_DIRECTORY and COMMAND

@@ -37,22 +37,27 @@ using namespace deep;
 using namespace GP;
 
 BOOST_AUTO_TEST_CASE( frames ) {
-    IKernel * kernel = new SquaredExponentialKernel(1.0,500.0);
+    SquaredExponentialKernel * kernel = new SquaredExponentialKernel(5,10);
 
 
     std::vector<std::tuple<double,double>> points;
-    for(int i=0;i<3;++i){
-        points.push_back(std::make_tuple(i,(i)*(i)));
+    for(int i=0;i<10;++i){
+        points.push_back(std::make_tuple(i,(i-5)*(i-5)));
     }
 
     std::vector<double> xnew;
-    xnew.push_back(3);
-    xnew.push_back(4);
-    xnew.push_back(7);
+    xnew.push_back(10);
+    xnew.push_back(11);
+    xnew.push_back(12);
+    xnew.push_back(13);
+    xnew.push_back(14);
+
+    kernel->CalibrateParameters(points);
 
     arma::mat mu;
     arma::mat cov;
-    kernel->Compute(points,xnew,mu,cov);
+    arma::mat K;
+    kernel->Compute(points, xnew, mu, cov,K);
     std::cout<<"MEAN="<<std::endl;
 
     mu=mu.t();
@@ -62,6 +67,10 @@ BOOST_AUTO_TEST_CASE( frames ) {
         }
         std::cout<<std::endl;
     }
+
+    std::cout<<"EXPECTED"<<std::endl;
+    for(auto s:xnew)
+        std::cout<<(s-5)*(s-5)<<" ";
 
     std::cout<<std::endl;
     std::cout<<"COVARIANCE="<<std::endl;
